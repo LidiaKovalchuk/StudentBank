@@ -12,27 +12,42 @@ namespace StudBank.BusinessEntities
         [Required]
         public Guid UserId { get; set; }
         [Required]
-        public Guid PersonId { get; set; }
+        public Guid ClientId { get; set; }
         [Required]
         public Guid LoanId { get; set; }
 
         [Required]
-        public Guid SecurityResolutionId { get; set; }
+        public int Term { get; set; }
         [Required]
-        public Guid SystemResolutionId { get; set; }
-        [Required]
-        public Guid ExpertResolutionId { get; set; }
-        [Required]
-        public Guid CommitteeResolutionId { get; set; }
+        public decimal Amount { get; set; }
+        [Required, StringLength(3)]
+        public string Currency { get; set; }
 
-        [Required]
+        public string PrivilegesConditions { get; set; }
         public string Goal { get; set; }
 
-        public virtual Person Person { get; set; }
+        [ForeignKey("ClientId"), InverseProperty("LoanApplications")]
+        public virtual Person Client { get; set; }
+        [ForeignKey("LoanId"), InverseProperty("LoanApplications")]
         public virtual Loan Loan { get; set; }
-        public virtual CommitteeResolution CommitteeResolution { get; set; }
-        public virtual ExpertResolution ExpertResolution { get; set; }
-        public virtual SecurityResolution SecurityResolution { get; set; }
-        public virtual SystemResolution SystemResolution { get; set; }
+
+        [InverseProperty("InsuredApplications")]
+        public virtual ICollection<Person> Sureties { get; set; }
+        [InverseProperty("LoanApplication")]
+        public virtual ICollection<LoanAgreement> LoanAgreements { get; set; }
+        [InverseProperty("LoanApplication")]
+        public virtual ICollection<SuretyAgreement> SuretyAgreements { get; set; }
+        [InverseProperty("LoanApplication")]
+        public virtual ICollection<BailAgreement> BailAgreements { get; set; }
+
+        [InverseProperty("LoanApplication")]
+        public virtual ICollection<SystemResolution> SystemResolutions { get; set; }
+        [InverseProperty("LoanApplication")]
+        public virtual ICollection<SecurityResolution> SecurityResolutions { get; set; }
+        [InverseProperty("LoanApplication")]
+        public virtual ICollection<ExpertResolution> ExpertResolutions { get; set; }
+        [InverseProperty("LoanApplication")]
+        public virtual ICollection<CommitteeResolution> CommitteeResolutions { get; set; }
+        
     }
 }

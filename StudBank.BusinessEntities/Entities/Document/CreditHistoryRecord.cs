@@ -11,20 +11,25 @@ namespace StudBank.BusinessEntities
         [Required]
         public Guid PersonId { get; set; }
         [Required]
-        public decimal MoneyAmount { get; set; }
+        public Guid BankConstantsId { get; set; }
+
+        [Required]
+        public decimal Amount { get; set; }
+        [Required, StringLength(3)]
+        public string Currency { get; set; }
         [Required]
         public decimal Interest { get; set; }
 
         [Required, Column(TypeName = "datetime2")]
         public DateTime TermStartDate { get; set; }
-        [Required, Column(TypeName = "datetime2")]
-        public DateTime TermEndDate { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime? TermEndDate { get; set; }
 
-        [StringLength(300)]
-        public string BC { get; set; }
-        [StringLength(300)]
         public string AdditionalInfo { get; set; }
 
+        [ForeignKey("PersonId")]
         public virtual Person Person { get; set; }
+        [ForeignKey("BankConstantsId")]
+        public virtual BankConstants BankConstants { get; set; }
     }
 }
