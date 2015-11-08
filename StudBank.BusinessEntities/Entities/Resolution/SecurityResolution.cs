@@ -10,31 +10,38 @@ namespace StudBank.BusinessEntities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
+        public Guid LoanApplicationId { get; set; }
+        [Required]
         public Guid UserId { get; set; }
+
         [Required]
         public string Convictions { get; set; }
-        public string ConvictionsEstimate { get; set; }
+        public int ConvictionsEstimate { get; set; }
         [Required]
-        public decimal Income { get; set; }
-        public decimal IncomeEstimate { get; set; }
+        public string Income { get; set; }
+        public int IncomeEstimate { get; set; }
         [Required]
         public string PlaceOfWork { get; set; }
-        public string PlaceOfWorkEstimate { get; set; }
+        public int PlaceOfWorkEstimate { get; set; }
         [Required]
         public string Social { get; set; }
-        public string SocialEstimate { get; set; }
+        public int SocialEstimate { get; set; }
         [Required]
-        public decimal Property { get; set; }
-        public decimal PropertyEstimate { get; set; }
+        public string Surety { get; set; }
+        public int SuretyEstimate { get; set; }
         [Required]
-        public decimal Bail { get; set; }
-        public decimal BailEstimate { get; set; }
+        public string Property { get; set; }
+        public int PropertyEstimate { get; set; }
+        [Required]
+        public string Bail { get; set; }
+        public int BailEstimate { get; set; }
 
         [Required]
         public string CommonResolution { get; set; }
         [Required]
-        public string CommonEstimate { get; set; }
+        public int CommonEstimate { get; set; }
 
-        public virtual ICollection<LoanApplication> LoadApplications { get; set; }
+        [ForeignKey("LoanApplicationId"), InverseProperty("SecurityResolutions")]
+        public virtual LoanApplication LoanApplication { get; set; }
     }
 }

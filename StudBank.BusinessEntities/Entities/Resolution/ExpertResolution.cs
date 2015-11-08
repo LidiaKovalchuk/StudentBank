@@ -10,21 +10,32 @@ namespace StudBank.BusinessEntities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
+        public Guid LoanApplicationId { get; set; }
+        [Required]
         public Guid UserId { get; set; }
+
+        public string Income { get; set; }
         [Required]
-        public decimal Income { get; set; }
-        public decimal IncomeEstimate { get; set; }
+        public int IncomeEstimate { get; set; }
+        
+        public string Property { get; set; }
         [Required]
-        public decimal Property { get; set; }
-        public decimal PropertyEstimate { get; set; }
+        public int PropertyEstimate { get; set; }
+        
+        public string Surety { get; set; }
         [Required]
-        public decimal Bail { get; set; }
-        public decimal BailEstimate { get; set; }
+        public int SuretyEstimate { get; set; }
+        
+        public string Bail { get; set; }
+        [Required]
+        public int BailEstimate { get; set; }
 
         [Required]
         public string CommonResolution { get; set; }
-        public string CommonEstimate { get; set; }
+        [Required]
+        public int CommonEstimate { get; set; }
 
-        public virtual ICollection<LoanApplication> LoadApplications { get; set; }
+        [ForeignKey("LoanApplicationId"), InverseProperty("ExpertResolutions")]
+        public virtual LoanApplication LoanApplication { get; set; }
     }
 }

@@ -10,10 +10,18 @@ namespace StudBank.BusinessEntities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
+        public Guid LoanApplicationId { get; set; }
+        [Required]
         public Guid UserId { get; set; }
+
+        public Guid ProtocolDocumentId { get; set; }
+
         [Required]
         public string Resolution { get; set; }
 
-        public virtual ICollection<LoanApplication> LoadApplications { get; set; }
+        [ForeignKey("LoanApplicationId"), InverseProperty("CommitteeResolutions")]
+        public virtual LoanApplication LoanApplication { get; set; }
+        [ForeignKey("ProtocolDocumentId"), InverseProperty("CommitteeResolutions")]
+        public virtual Document ProtocolDocument { get; set; }
     }
 }

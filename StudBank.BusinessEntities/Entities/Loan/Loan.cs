@@ -5,27 +5,38 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudBank.BusinessEntities
 {
+    public enum LoanGuarantees { None = 0, Other, Surety, Bail }
+    public enum LoanProvidings { None = 0, Other, NoncashTransfer, NonrevolvingCreditLine, RevolvingCreditLine }
+    public enum LoanRepayments { None = 0, Other, Annuity, Differential }
+    public enum LoanTypes { None = 0, Other, Personal, HomeImprovement, Car, Graduate, DebtConsolidation }
+
     public class Loan: IEntity
     {
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
-        public Guid LoanTypeId { get; set; }
+        public Guid ConsiderationRouteId { get; set; }
+
         [Required]
-        public Guid LoanProvidingId { get; set; }
+        public LoanTypes LoanType { get; set; }
         [Required]
-        public Guid LoanRepaymentId { get; set; }
+        public LoanGuarantees LoanGuarantee { get; set; }
         [Required]
-        public Guid LoanGuaranteeId { get; set; }
+        public LoanProvidings LoanProviding { get; set; }
+        [Required]
+        public LoanRepayments LoanRepayment { get; set; }
+        
 
         [Required, StringLength(50)]
         public string Name { get; set; }
         [Required]
-        public string Description { get; set; }
-        [Required, Column(TypeName = "datetime2")]
-        public DateTime MaxTerm { get; set; }
+        public string Description { get; set; }      
         [Required]
         public decimal MaxAmount { get; set; }
+        [Required, StringLength(3)]
+        public string Currency { get; set; }
+        [Required]
+        public int MaxTerm { get; set; }
         [Required]
         public decimal ProcessingFee { get; set; }
         [Required]
@@ -35,15 +46,19 @@ namespace StudBank.BusinessEntities
         [Required]
         public bool IsFixedRateOfInterest { get; set; }
         [Required]
-        public decimal FineRateOfInterest { get; set; }
+        public string FineConditions { get; set; }
         [Required]
-        public string FineContitions { get; set; }     
+        public string PrepaymentConditions { get; set; }
 
-        public virtual LoanType LoanType { get; set; }
-        public virtual LoanProviding LoanProviding { get; set; }
-        public virtual LoanRepayment LoanRepayment { get; set; }
-        public virtual LoanGuarantee LoanGuarantee { get; set; }
+        [Required]
+        public decimal MinIncome { get; set; }
+        [Required]
+        public decimal MinScoringPoint { get; set; }
 
-        public virtual ICollection<SystemResolution> SystemResolutions { get; set; }
+        [ForeignKey("ConsiderationRouteId"), InverseProperty("Loans")]
+        public virtual ConsiderationRoute ConsiderationRoute { get; set; }
+
+        [InverseProperty("Loan")]
+        public virtual ICollection<LoanApplication> LoanApplications { get; set; }
     }
 }

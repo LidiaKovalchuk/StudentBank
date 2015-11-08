@@ -48,8 +48,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\EntityService.cs" />
-    <Compile Include="Services\IEntityService.cs" />
+    <Compile Include="Services\CommitteeResolutionService.cs" />
+    <Compile Include="Services\ExpertResolutionService.cs" />
+    <Compile Include="Services\SecurityResolutionService.cs" />
+    <Compile Include="Services\SystemResolutionService.cs" />
+    <Compile Include="Services\BailAgreementService.cs" />
+    <Compile Include="Services\SuretyAgreementService.cs" />
+    <Compile Include="Services\LoanApplicationService.cs" />
+    <Compile Include="Services\LoanService.cs" />
+    <Compile Include="Services\ConsiderationRouteService.cs" />
+    <Compile Include="Services\CreditHistoryRecordService.cs" />
+    <Compile Include="Services\PersonService.cs" />
+    <Compile Include="Services\DocumentService.cs" />
+    <Compile Include="Services\BankConstantsService.cs" />
+    <Compile Include="Services\RiskAssessmentService.cs" />
+    <Compile Include="Services\PayoutStatusService.cs" />
+    <Compile Include="Services\WithdrawalService.cs" />
+    <Compile Include="Services\FineService.cs" />
+    <Compile Include="Services\PayoutService.cs" />
+    <Compile Include="Services\BankTransferService.cs" />
+    <Compile Include="Services\LoanAgreementService.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Generic\EntityService.cs" />
+    <Compile Include="Generic\IEntityService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
